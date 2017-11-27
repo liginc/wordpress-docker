@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 echo >&2 "Wait for MySQL running..."
 wait-for-it.sh -t 0 mysql:3306
@@ -53,21 +53,27 @@ PHP
       wp plugin activate wp-multibyte-patch --path=${WP_ROOT} --allow-root
     fi
 
+    # Install extra plugins specified by $WP_INSTALL_PLUGINS
+    if [[ -z "${WP_INSTALL_PLUGINS}" ]]; then
+        echo "env var \$WP_INSTALL_PLUGINS is empty - skipping installing extra plugins";
+    else
+        for TEMP_WP_PLUGIN in $WP_INSTALL_PLUGINS; do
+            if ! $(wp plugin is-installed ${TEMP_WP_PLUGIN} --path=${WP_ROOT} --allow-root); then
+                wp plugin install ${TEMP_WP_PLUGIN} --path=${WP_ROOT} --allow-root
+            fi
+            wp plugin activate ${TEMP_WP_PLUGIN} --path=${WP_ROOT} --allow-root
+        done
+    fi
+
     # Activate theme
     wp theme activate ${WP_CURRENT_THEME} --path=${WP_ROOT} --allow-root
 
-    # Delete theme
-    if $(wp theme is-installed twentyfifteen --path=${WP_ROOT} --allow-root); then
-      wp theme delete twentyfifteen --path=${WP_ROOT} --allow-root
-    fi
-
-    if $(wp theme is-installed twentysixteen --path=${WP_ROOT} --allow-root); then
-      wp theme delete twentysixteen --path=${WP_ROOT} --allow-root
-    fi
-
-    if $(wp theme is-installed twentyseventeen --path=${WP_ROOT} --allow-root); then
-      wp theme delete twentyseventeen --path=${WP_ROOT} --allow-root
-    fi
+    # Delete default themes
+    for TEMP_WP_THEME in twentyfifteen twentysixteen twentyseventeen; do
+        if $(wp theme is-installed ${TEMP_WP_THEME} --path=${WP_ROOT} --allow-root); then
+          wp theme delete ${TEMP_WP_THEME} --path=${WP_ROOT} --allow-root
+        fi
+    done
 
     if ! $(wp core is-installed --path=${WP_ROOT} --allow-root); then
       echo >&2 "WARNING: It seems that wrong params was set to .env - press Ctrl+C now if this is an error!"
