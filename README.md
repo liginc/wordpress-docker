@@ -8,32 +8,32 @@ Web Server Docker Images for Wordpress built using [_Wordpress Boilerplate for F
 
 ### php7.2
 
-- **Apache + PHP 7.2**: `1.3.0-php7.2-apache`, `php7.2-apache`, `php7.2`, `latest` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.2/apache/Dockerfile))
-- **Apache + PHP 7.2 (noinit)**: `1.3.0-php7.2-apache-noinit`, `php7.2-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.2/apache-noinit/Dockerfile))
+- **Apache + PHP 7.2**: `1.3.0-php7.2-apache`, `php7.2-apache`, `php7.2`, `latest` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.2/apache/Dockerfile))
+- **Apache + PHP 7.2 (noinit)**: `1.3.0-php7.2-noinit-apache`, `php7.2-noinit-apache`, `php7.2-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.2/noinit-apache/Dockerfile))
 
 ### php7.1
 
-- **Apache + PHP 7.1**: `1.2.1-php7.1-apache`, `php7.1-apache`, `php7.1` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.1/apache/Dockerfile))
-- **Apache + PHP 7.1 (noinit)**: `1.2.1-php7.1-apache-noinit`, `php7.1-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.1/apache-noinit/Dockerfile))
+- **Apache + PHP 7.1**: `1.2.1-php7.1-apache`, `php7.1-apache`, `php7.1` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.1/apache/Dockerfile))
+- **Apache + PHP 7.1 (noinit)**: `1.3.0-php7.1-noinit-apache`, `php7.1-noinit-apache`, `php7.1-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.1/noinit-apache/Dockerfile))
 
 ### php7.0
 
-- **Apache + PHP 7.0**: `1.3.0-php7.0-apache`, `php7.0-apache`, `php7.0` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.0/apache/Dockerfile))
-- **Apache + PHP 7.0 (noinit)**: `1.3.0-php7.0-apache-noinit`, `php7.0-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php7.0/apache-noinit/Dockerfile))
+- **Apache + PHP 7.0**: `1.3.0-php7.0-apache`, `php7.0-apache`, `php7.0` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.0/apache/Dockerfile))
+- **Apache + PHP 7.0 (noinit)**: `1.3.0-php7.0-noinit-apache`, `php7.0-noinit-apache`, `php7.0-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php7.0/noinit-apache/Dockerfile))
 
 ### php5.6
 
-- **Apache + PHP 5.6**: `1.2.1-php5.6-apache`, `php5.6-apache`, `php5.6` ([source](https://github.com/liginc/wordpress-docker/blob/master/php5.6/apache/Dockerfile))
-- **Apache + PHP 5.6 (noinit)**: `1.2.1-php5.6-apache-noinit`, `php5.6-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php5.6/apache-noinit/Dockerfile))
+- **Apache + PHP 5.6**: `1.2.1-php5.6-apache`, `php5.6-apache`, `php5.6` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php5.6/apache/Dockerfile))
+- **Apache + PHP 5.6 (noinit)**: `1.3.0-php5.6-noinit-apache`, `php5.6-noinit-apache`, `php5.6-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php5.6/noinit-apache/Dockerfile))
 
 ### php5.5
 
-- **Apache + PHP 5.5**: `1.3.0-php5.5-apache`, `php5.5-apache`, `php5.5` ([source](https://github.com/liginc/wordpress-docker/blob/master/php5.5/apache/Dockerfile))
-- **Apache + PHP 5.5 (noinit)**: `1.3.0-php5.5-apache-noinit`, `php5.5-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php5.5/apache-noinit/Dockerfile))
+- **Apache + PHP 5.5**: `1.3.0-php5.5-apache`, `php5.5-apache`, `php5.5` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php5.5/apache/Dockerfile))
+- **Apache + PHP 5.5 (noinit)**: `1.3.0-php5.5-noinit-apache`, `php5.5-noinit-apache`, `php5.5-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php5.5/noinit-apache/Dockerfile))
 
 ### php5.3
 
-- **CentOS + Apache + PHP 5.3 (noinit)**: `1.4.0-php5.3-centos-apache-noinit`, `php5.3-centos-apache-noinit` ([source](https://github.com/liginc/wordpress-docker/blob/master/php5.3/centos-apache-noinit/Dockerfile))
+- **CentOS + Apache + PHP 5.3 (noinit)**: `1.4.0-php5.3-centos-apache-noinit`, `php5.3-centos-apache-noinit` ([Dockerfile](https://github.com/liginc/wordpress-docker/blob/master/php5.3/centos-noinit-apache/Dockerfile))
 
 ## Usage
 
@@ -48,7 +48,7 @@ Following sample is how you could simply launch the environment using Docker Com
 version: '2'
 services:
   wordpress:
-    image: liginccojp/wordpress:1.3.0-php7.2-apache-noinit
+    image: liginccojp/wordpress:1.3.0-php7.2-noinit-apache
     mem_limit: 256m
     depends_on:
       - mysql
