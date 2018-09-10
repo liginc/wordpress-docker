@@ -48,7 +48,8 @@ Following sample is how you could simply launch the environment using Docker Com
 version: '2'
 services:
   wordpress:
-    image: liginccojp/wordpress:1.3.0-php7.2-noinit-apache
+    env_file: .env
+    image: liginccojp/wordpress
     mem_limit: 256m
     depends_on:
       - mysql
@@ -59,13 +60,9 @@ services:
     volumes:
       - ./wp:/var/www/html
   mysql:
-    image: mysql:8
+    env_file: .env
+    image: mysql:5.7
     mem_limit: 256m
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
     ports:
       - 3306:3306
     volumes:
