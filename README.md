@@ -69,6 +69,23 @@ services:
       - ./sql:/docker-entrypoint-initdb.d:rw
 ```
 
+```env
+# Sample .env
+# Copy and create ".env" file same directory
+MYSQL_ROOT_PASSWORD=password
+MYSQL_DATABASE=wordpress
+# Only first build
+WP_ROOT=/var/www/html
+WP_URL=http://localhost
+WP_VERSION=4.9.8
+WP_DB_PREFIX=wp_
+WP_ADMIN_USER=root
+WP_ADMIN_PASSWORD=root
+WP_ADMIN_EMAIL=root@example.com
+WP_CURRENT_THEME=sampletheme
+
+```
+
 ## Maintainer
 
 - [ktogo](https://github.com/ktogo)
