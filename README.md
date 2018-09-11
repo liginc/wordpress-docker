@@ -44,12 +44,43 @@ Note that you need MySQL database externally.
 Following sample is how you could simply launch the environment using Docker Compose.
 
 ```yaml
-# Sample docker-compose.yml
+# Sample1 docker-compose.yml
+version: '2'
+services:
+  wordpress:
+    image: liginccojp/wordpress:1.3.0-php7.2-noinit-apache
+    mem_limit: 256m
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    links:
+      - mysql:mysql
+    volumes:
+      - ./wp:/var/www/html
+  mysql:
+    image: mysql:8
+    mem_limit: 256m
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d:rw
+```
+
+```yaml
+# Sample2 docker-compose.yml
+## This sample needs .env for requiring environment parameter. First building the wordpress-docker image, this sample will download and install wordpress automatically.
+
 version: '2'
 services:
   wordpress:
     env_file: .env
-    image: liginccojp/wordpress
+    image: liginccojp/wordpress:1.3.0-php7.2-apache
     mem_limit: 256m
     depends_on:
       - mysql
@@ -71,9 +102,10 @@ services:
 
 ```env
 # Sample .env
-# Copy and create ".env" file same directory
+
 MYSQL_ROOT_PASSWORD=password
 MYSQL_DATABASE=wordpress
+
 # Only first build
 WP_ROOT=/var/www/html
 WP_URL=http://localhost
@@ -83,6 +115,12 @@ WP_ADMIN_USER=root
 WP_ADMIN_PASSWORD=root
 WP_ADMIN_EMAIL=root@example.com
 WP_CURRENT_THEME=sampletheme
+
+# Install Plugins
+# WP_INSTALL_PLUGINS=query-monitor
+
+# Init wp_options setup
+WP_OPTIONS_SETUP=blog_public:0 ping_status:closed comment_status:closed
 
 ```
 
