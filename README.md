@@ -48,8 +48,7 @@ Following sample is how you could simply launch the environment using Docker Com
 version: '2'
 services:
   wordpress:
-    env_file: .env
-    image: liginccojp/wordpress
+    image: liginccojp/wordpress:1.3.0-php7.2-noinit-apache
     mem_limit: 256m
     depends_on:
       - mysql
@@ -60,30 +59,17 @@ services:
     volumes:
       - ./wp:/var/www/html
   mysql:
-    env_file: .env
-    image: mysql:5.7
+    image: mysql:8
     mem_limit: 256m
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
     ports:
       - 3306:3306
     volumes:
       - ./sql:/docker-entrypoint-initdb.d:rw
-```
-
-```env
-# Sample .env
-# Copy and create ".env" file same directory
-MYSQL_ROOT_PASSWORD=password
-MYSQL_DATABASE=wordpress
-# Only first build
-WP_ROOT=/var/www/html
-WP_URL=http://localhost
-WP_VERSION=4.9.8
-WP_DB_PREFIX=wp_
-WP_ADMIN_USER=root
-WP_ADMIN_PASSWORD=root
-WP_ADMIN_EMAIL=root@example.com
-WP_CURRENT_THEME=sampletheme
-
 ```
 
 ## Maintainer
