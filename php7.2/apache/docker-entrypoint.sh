@@ -53,10 +53,15 @@ fi
 # Install and activate plugins
 
 echo >&2 "Setting up themes and plugins..."
-# Delete plugin
+# Delete plugins
 if $(wp plugin is-installed hello --path=${WP_ROOT} --allow-root); then
 	wp plugin delete hello --path=${WP_ROOT} --allow-root
 fi
+
+if $(wp plugin is-installed akismet --path=${WP_ROOT} --allow-root); then
+	wp plugin delete akismet --path=${WP_ROOT} --allow-root
+fi
+
 
 # Activate plugin
 if $(wp plugin is-installed wp-multibyte-patch --path=${WP_ROOT} --allow-root); then
@@ -75,6 +80,21 @@ else
 		wp plugin activate ${TEMP_WP_PLUGIN} --path=${WP_ROOT} --allow-root
 	done
 	unset "TEMP_WP_PLUGIN"
+fi
+
+# Init wp_options setting by $WP_OPTIONS_SETUP
+if [[ -z "${WP_OPTIONS_SETUP}" ]]; then
+	echo >&2 "env var \$WP_OPTIONS_SETUP is empty - skipping updating wp_options";
+else
+	for TEMP_WP_OPTION in $WP_OPTIONS_SETUP; do
+		TEMP_WP_OPTION_KEY=$(cut -d':' -f 1 <<<${TEMP_WP_OPTION})
+        TEMP_WP_OPTION_VALUE=$(cut -d':' -f 2 <<<${TEMP_WP_OPTION})
+		echo >&2 "Updating wp_options ${TEMP_WP_OPTION_KEY}..."
+		wp option update ${TEMP_WP_OPTION_KEY} ${TEMP_WP_OPTION_VALUE} --allow-root
+	done
+	unset "TEMP_WP_OPTION"
+	unset "TEMP_WP_OPTION_KEY"
+	unset "TEMP_WP_OPTION_VALUE"
 fi
 
 # Activate theme
@@ -105,6 +125,7 @@ envs=(
 	WP_CURRENT_THEME
 	WP_CURRENT_THEME
 	WP_INSTALL_PLUGINS
+	WP_OPTIONS_SETUP
 )
 # now that we're definitely done writing configuration, let's clear out the relevant envrionment variables (so that stray "phpinfo()" calls don't leak secrets from our code)
 for e in "${envs[@]}"; do
