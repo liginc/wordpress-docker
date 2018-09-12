@@ -53,10 +53,15 @@ fi
 # Install and activate plugins
 
 echo >&2 "Setting up themes and plugins..."
-# Delete plugin
+# Delete plugins
 if $(wp plugin is-installed hello --path=${WP_ROOT} --allow-root); then
 	wp plugin delete hello --path=${WP_ROOT} --allow-root
 fi
+
+if $(wp plugin is-installed akismet --path=${WP_ROOT} --allow-root); then
+	wp plugin delete akismet --path=${WP_ROOT} --allow-root
+fi
+
 
 # Activate plugin
 if $(wp plugin is-installed wp-multibyte-patch --path=${WP_ROOT} --allow-root); then
