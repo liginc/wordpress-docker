@@ -92,7 +92,7 @@ services:
       - ./wp:/var/www/html
   mysql:
     env_file: .env
-    image: mysql:5.7
+    image: mysql:8
     mem_limit: 256m
     ports:
       - 3306:3306
@@ -118,9 +118,6 @@ WP_CURRENT_THEME=sampletheme
 
 # Install Plugins
 # WP_INSTALL_PLUGINS=query-monitor
-
-# Init wp_options setup
-WP_OPTIONS_SETUP=blog_public:0 ping_status:closed comment_status:closed
 
 ```
 
